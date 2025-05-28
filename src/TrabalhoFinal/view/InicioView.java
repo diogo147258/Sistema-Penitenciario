@@ -17,6 +17,7 @@ public class InicioView extends javax.swing.JFrame {
      */
     public InicioView() {
         initComponents();
+        
        
     }
 
