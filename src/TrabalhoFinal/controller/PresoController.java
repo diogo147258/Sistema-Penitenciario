@@ -39,6 +39,7 @@ public class PresoController {
                 preso.setIdCela(rs.getInt(5));
                 preso.setDataEntrada(rs.getString(6));
                 preso.setPena(rs.getString(7));
+                
                 lista.add(preso);
             }
             return lista;
@@ -56,7 +57,8 @@ public class PresoController {
         
         Conexao conexao = new Conexao();
         Connection con = conexao.conectar();
-        String instrucao = "INSERT INTO produto (id_preso, nome, data_nascimento, cpf , cela_id, data_entrada, pena_anos) VALUES (?,?,?,?,?,?,?)";
+        /*FALTA COR, NATURALIDADE, FILIACAO,*/
+        String instrucao = "INSERT INTO prisao (id_preso, nome, data_nascimento, cpf , cela_id, data_prisao, pena_anos, cor, naturalidade, filiacao) VALUES (?,?,?,?,?,?,?,?,?,?)";
         boolean retorno = false;
         try {
             PreparedStatement ps = con.prepareStatement(instrucao);
@@ -67,6 +69,9 @@ public class PresoController {
             ps.setInt(5, preso.getIdCela());
             ps.setString(6, preso.getDataEntrada());
             ps.setString(7, preso.getPena());
+            ps.setString(8,preso.getCor());
+            ps.setString(9, preso.getNaturalidade());
+            ps.setString(10, preso.getFiliacao());
             int resultado = ps.executeUpdate();
             retorno = resultado >= 0;
         } catch (Exception ex) {
@@ -82,7 +87,7 @@ public class PresoController {
          
         Conexao conexao = new Conexao();
         Connection con = conexao.conectar();
-        String instrucao = "UPDATE INTO produto (id_preso, nome, data_nascimento, cpf , cela_id, data_entrada, pena_anos) VALUES (?,?,?,?,?,?,?)";
+        String instrucao = "UPDATE INTO prisao (id_preso, nome, data_nascimento, cpf , cela_id, data_entrada, pena_anos, cor, naturalidade, filiacao) VALUES (?,?,?,?,?,?,?,?,?,?)";
         boolean retorno = false;
         try {
             PreparedStatement ps = con.prepareStatement(instrucao);
@@ -93,6 +98,9 @@ public class PresoController {
             ps.setInt(5, preso.getIdCela());
             ps.setString(6, preso.getDataEntrada());
             ps.setString(7, preso.getPena());
+            ps.setString(8,preso.getCor());
+            ps.setString(9, preso.getNaturalidade());
+            ps.setString(10, preso.getFiliacao());
             int resultado = ps.executeUpdate();
             retorno = resultado >= 0;
         } catch (Exception ex) {
@@ -104,15 +112,15 @@ public class PresoController {
     }
      
      
-       public boolean excluir(PresoModel produto) {
+       public boolean excluir(PresoModel preso) {
         
         Conexao conexao = new Conexao();
         Connection con = conexao.conectar();
-        String instrucao = "DELETE FROM produto WHERE id = ?";
+        String instrucao = "DELETE FROM prisao WHERE id = ?";
         boolean retorno = false;
         try {
             PreparedStatement ps = con.prepareStatement(instrucao);
-            ps.setInt(1, produto.getIdPreso());
+            ps.setInt(1, preso.getIdPreso());
             int resultado = ps.executeUpdate();
             retorno = resultado >= 0;
         } catch (Exception ex) {

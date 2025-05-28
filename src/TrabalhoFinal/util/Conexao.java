@@ -22,7 +22,7 @@ public class Conexao {
             System.out.println("Carregando Driver");
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            String cs = "jdbc:mysql://localhost:3307/prisao";
+            String cs = "jdbc:mysql://localhost:3306/penitenciaria";
             String user = "root";
             String pass = "root";
             System.out.println("Conexão realizada com Sucesso");

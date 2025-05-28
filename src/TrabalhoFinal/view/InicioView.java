@@ -1,24 +1,23 @@
-package TrabalhoFinal.view;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+package TrabalhoFinal.view;
 
 /**
  *
- * @author andre.miranda
+ * @author diogo
  */
 public class InicioView extends javax.swing.JFrame {
 
     /**
-     * Creates new form InicioView
+     * Creates new form Inicio1View
      */
     public InicioView() {
         initComponents();
-        setResizable(false);
-        setSize(765, 550);
-        setLocationRelativeTo(null);
+       
     }
 
     /**
@@ -30,55 +29,79 @@ public class InicioView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btCadastrarPreso = new javax.swing.JButton();
+        jDesktopInicio = new javax.swing.JDesktopPane();
         lbTituloInicio = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        JMPreso = new javax.swing.JMenu();
+        JMICadastrar = new javax.swing.JMenuItem();
+        JMIAgendar = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        btCadastrarPreso.setText("Cadastrar Preso");
-        btCadastrarPreso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btCadastrarPresoActionPerformed(evt);
-            }
-        });
 
         lbTituloInicio.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         lbTituloInicio.setText(" SISTEMA PENITENCIÁRIO ");
         lbTituloInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         lbTituloInicio.setOpaque(true);
 
+        jDesktopInicio.setLayer(lbTituloInicio, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jDesktopInicioLayout = new javax.swing.GroupLayout(jDesktopInicio);
+        jDesktopInicio.setLayout(jDesktopInicioLayout);
+        jDesktopInicioLayout.setHorizontalGroup(
+            jDesktopInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopInicioLayout.createSequentialGroup()
+                .addGap(218, 218, 218)
+                .addComponent(lbTituloInicio)
+                .addContainerGap(221, Short.MAX_VALUE))
+        );
+        jDesktopInicioLayout.setVerticalGroup(
+            jDesktopInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDesktopInicioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbTituloInicio)
+                .addContainerGap(480, Short.MAX_VALUE))
+        );
+
+        JMPreso.setText("Preso");
+
+        JMICadastrar.setText("Cadastrar Preso");
+        JMICadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMICadastrarActionPerformed(evt);
+            }
+        });
+        JMPreso.add(JMICadastrar);
+
+        JMIAgendar.setText("Agendar visitas");
+        JMPreso.add(JMIAgendar);
+
+        jMenuBar1.add(JMPreso);
+
+        jMenu2.setText("Funcionario");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(207, Short.MAX_VALUE)
-                .addComponent(lbTituloInicio)
-                .addGap(197, 197, 197))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(269, 269, 269)
-                .addComponent(btCadastrarPreso, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jDesktopInicio)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(lbTituloInicio)
-                .addGap(31, 31, 31)
-                .addComponent(btCadastrarPreso, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(278, Short.MAX_VALUE))
+            .addComponent(jDesktopInicio)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btCadastrarPresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarPresoActionPerformed
-    
-        PresoView preso = new PresoView();  
+    private void JMICadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMICadastrarActionPerformed
+        PresoView preso=new PresoView();
+        jDesktopInicio.add(preso);
         preso.setVisible(true);
-        this.dispose();// TODO add your handling code here:
-    }//GEN-LAST:event_btCadastrarPresoActionPerformed
+    }//GEN-LAST:event_JMICadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -106,6 +129,7 @@ public class InicioView extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(InicioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -116,7 +140,12 @@ public class InicioView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btCadastrarPreso;
+    private javax.swing.JMenuItem JMIAgendar;
+    private javax.swing.JMenuItem JMICadastrar;
+    private javax.swing.JMenu JMPreso;
+    private javax.swing.JDesktopPane jDesktopInicio;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel lbTituloInicio;
     // End of variables declaration//GEN-END:variables
 }

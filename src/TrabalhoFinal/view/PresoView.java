@@ -1,32 +1,47 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package TrabalhoFinal.view;
 
+import TrabalhoFinal.controller.PresoController;
+import TrabalhoFinal.model.PresoModel;
 import java.awt.Image;
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 /**
  *
- * @author andre
+ * @author diogo
  */
-public class PresoView extends javax.swing.JFrame {
+
+public class PresoView extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form PresoView
+     * Creates new form Preso1View
      */
     public PresoView() {
         initComponents();
-     
+        setResizable(false);
         ImageIcon icon = new ImageIcon(getClass().getResource("foto.png"));
         Image img = icon.getImage().getScaledInstance(160, 160, Image.SCALE_SMOOTH);
         btFotoPreso.setIcon(new ImageIcon(img));
-        setResizable(false);
-        setSize(765, 550);
-        setLocationRelativeTo(null);
-
+        
     }
+    
+     public void limparCampos(){
+    
+    tfNome.setText("");
+    tfCpf.setText("");
+    tfDataNascimento.setText("");
+    tfCela.setText("");
+    tfPena.setText("");
+    tfFiliacao.setText("");
+    tfNaturalidade.setText("");
+    tfCor.setText("");
+    tfDataPrisao.setText("");
+    
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,10 +52,7 @@ public class PresoView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel2 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lbiD = new javax.swing.JLabel();
         tfId = new javax.swing.JTextField();
@@ -68,26 +80,10 @@ public class PresoView extends javax.swing.JFrame {
         btCancelar = new javax.swing.JButton();
         btLimpar = new javax.swing.JButton();
 
-        jTextField1.setText("jTextField1");
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Cadastro de Prisioneiros");
-
         jLabel2.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabel2.setText(" SISTEMA PENITENCIÁRIO ");
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
         jLabel2.setOpaque(true);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
@@ -140,6 +136,11 @@ public class PresoView extends javax.swing.JFrame {
         });
 
         btFotoPreso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TrabalhoFinal/view/foto.png"))); // NOI18N
+        btFotoPreso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btFotoPresoActionPerformed(evt);
+            }
+        });
 
         lbFiliacao.setText("Filiação:");
 
@@ -154,6 +155,12 @@ public class PresoView extends javax.swing.JFrame {
         lbCor.setText("Cor:");
 
         lbDataPrisao.setText("Data de Prisão");
+
+        tfDataPrisao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfDataPrisaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -267,6 +274,11 @@ public class PresoView extends javax.swing.JFrame {
         });
 
         btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
 
         btCancelar.setText("Cancelar");
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -286,140 +298,124 @@ public class PresoView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(185, 185, 185))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btInserir)
-                        .addGap(35, 35, 35)
-                        .addComponent(btSalvar)
-                        .addGap(31, 31, 31)
-                        .addComponent(btLimpar)
-                        .addGap(34, 34, 34)
-                        .addComponent(btCancelar)
-                        .addGap(184, 184, 184))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(104, 104, 104)))
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 788, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(121, 121, 121)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(109, 109, 109)
+                            .addComponent(jLabel2)
+                            .addGap(75, 75, 75))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btInserir)
+                                .addGap(35, 35, 35)
+                                .addComponent(btSalvar)
+                                .addGap(31, 31, 31)
+                                .addComponent(btLimpar)
+                                .addGap(34, 34, 34)
+                                .addComponent(btCancelar)
+                                .addGap(80, 80, 80))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(122, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(200, 200, 200)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btInserir)
-                    .addComponent(btSalvar)
-                    .addComponent(btLimpar)
-                    .addComponent(btCancelar))
-                .addGap(34, 34, 34))
+            .addGap(0, 514, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(15, 15, 15)
+                    .addComponent(jLabel2)
+                    .addGap(18, 18, 18)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(21, 21, 21)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btInserir)
+                        .addComponent(btSalvar)
+                        .addComponent(btLimpar)
+                        .addComponent(btCancelar))
+                    .addContainerGap(66, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfFiliacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFiliacaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfFiliacaoActionPerformed
-
-    private void tfPenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPenaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfPenaActionPerformed
-
-    private void tfCelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCelaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfCelaActionPerformed
-
-    private void tfDataNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDataNascimentoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfDataNascimentoActionPerformed
-
-    private void tfCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCpfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfCpfActionPerformed
+    private void tfIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIdActionPerformed
+        
+    }//GEN-LAST:event_tfIdActionPerformed
 
     private void tfNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNomeActionPerformed
 
-    private void tfIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIdActionPerformed
+    private void tfCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCpfActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfIdActionPerformed
+    }//GEN-LAST:event_tfCpfActionPerformed
+
+    private void tfDataNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDataNascimentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfDataNascimentoActionPerformed
+
+    private void tfCelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCelaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfCelaActionPerformed
+
+    private void tfPenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPenaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfPenaActionPerformed
+
+    private void tfFiliacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFiliacaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfFiliacaoActionPerformed
+
+    private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
+        PresoModel preso=new PresoModel();
+        preso.setIdPreso(Integer.parseInt(tfId.getText()));
+        preso.setIdCela(Integer.parseInt(tfCela.getText()));
+        preso.setNome(tfNome.getText());
+        preso.setDataNascimento(tfDataNascimento.getText());
+        preso.setDataEntrada(tfDataPrisao.getText());
+        preso.setCpf(tfCpf.getText());
+        preso.setPena(tfPena.getText());
+        preso.setFiliacao(tfFiliacao.getText());
+        preso.setNaturalidade(tfNaturalidade.getText());
+        preso.setCor(tfCor.getText());
+        PresoController presoControl=new PresoController();
+        presoControl.inserir(preso);
+        limparCampos();
+    }//GEN-LAST:event_btInserirActionPerformed
+
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+
+        this.dispose();
+    }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btLimparActionPerformed
 
-    private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btInserirActionPerformed
+    }//GEN-LAST:event_btSalvarActionPerformed
 
-    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
-        
-        InicioView inicio = new InicioView();
-        inicio.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btCancelarActionPerformed
+    private void btFotoPresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFotoPresoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btFotoPresoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PresoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PresoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PresoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PresoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void tfDataPrisaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDataPrisaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfDataPrisaoActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PresoView().setVisible(true);
-            }
-        });
-    }
-
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btFotoPreso;
     private javax.swing.JButton btInserir;
     private javax.swing.JButton btLimpar;
     private javax.swing.JButton btSalvar;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbCela;
     private javax.swing.JLabel lbCor;
     private javax.swing.JLabel lbCpf;
