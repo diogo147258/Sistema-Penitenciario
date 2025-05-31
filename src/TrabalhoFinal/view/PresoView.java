@@ -25,7 +25,18 @@ public class PresoView extends javax.swing.JInternalFrame {
         ImageIcon icon = new ImageIcon(getClass().getResource("foto.png"));
         Image img = icon.getImage().getScaledInstance(160, 160, Image.SCALE_SMOOTH);
         btFotoPreso.setIcon(new ImageIcon(img));
-        
+        tfNome.setEnabled(false);
+        tfCpf.setEnabled(false);
+        tfDataNascimento.setEnabled(false);
+        tfFiliacao.setEnabled(false);
+        tfNaturalidade.setEnabled(false);
+        tfCor.setEnabled(false);
+        tfDataPrisao.setEnabled(false);
+        tfPena.setEnabled(false);
+        tfCela.setEnabled(false); 
+        btSalvar.setEnabled(false);
+        btLimpar.setEnabled(false);
+        tfId.setEnabled(false);
     }
     
      public void limparCampos(){
@@ -79,6 +90,8 @@ public class PresoView extends javax.swing.JInternalFrame {
         btSalvar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
         btLimpar = new javax.swing.JButton();
+
+        setPreferredSize(new java.awt.Dimension(900, 623));
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabel2.setText(" SISTEMA PENITENCIÁRIO ");
@@ -298,44 +311,39 @@ public class PresoView extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 788, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(121, 121, 121)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGap(109, 109, 109)
-                            .addComponent(jLabel2)
-                            .addGap(75, 75, 75))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btInserir)
-                                .addGap(35, 35, 35)
-                                .addComponent(btSalvar)
-                                .addGap(31, 31, 31)
-                                .addComponent(btLimpar)
-                                .addGap(34, 34, 34)
-                                .addComponent(btCancelar)
-                                .addGap(80, 80, 80))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(122, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(262, 262, 262)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(174, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btInserir)
+                        .addGap(35, 35, 35)
+                        .addComponent(btSalvar)
+                        .addGap(31, 31, 31)
+                        .addComponent(btLimpar)
+                        .addGap(34, 34, 34)
+                        .addComponent(btCancelar)
+                        .addGap(80, 80, 80))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(169, 169, 169))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 514, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(15, 15, 15)
-                    .addComponent(jLabel2)
-                    .addGap(18, 18, 18)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(21, 21, 21)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btInserir)
-                        .addComponent(btSalvar)
-                        .addComponent(btLimpar)
-                        .addComponent(btCancelar))
-                    .addContainerGap(66, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(39, 39, 39)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btInserir)
+                    .addComponent(btSalvar)
+                    .addComponent(btLimpar)
+                    .addComponent(btCancelar))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
         pack();
@@ -370,8 +378,32 @@ public class PresoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfFiliacaoActionPerformed
 
     private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
+        tfNome.setEnabled(true);
+        tfCpf.setEnabled(true);
+        tfDataNascimento.setEnabled(true);
+        tfFiliacao.setEnabled(true);
+        tfNaturalidade.setEnabled(true);
+        tfCor.setEnabled(true);
+        tfDataPrisao.setEnabled(true);
+        tfPena.setEnabled(true);
+        tfCela.setEnabled(true); 
+        btSalvar.setEnabled(true);
+        btLimpar.setEnabled(true);
+        btInserir.setEnabled(false);
+    }//GEN-LAST:event_btInserirActionPerformed
+
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+
+        this.dispose();
+    }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_btLimparActionPerformed
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         PresoModel preso=new PresoModel();
-        preso.setIdPreso(Integer.parseInt(tfId.getText()));
+       // preso.setIdPreso(Integer.parseInt(tfId.getText()));
         preso.setIdCela(Integer.parseInt(tfCela.getText()));
         preso.setNome(tfNome.getText());
         preso.setDataNascimento(tfDataNascimento.getText());
@@ -384,19 +416,19 @@ public class PresoView extends javax.swing.JInternalFrame {
         PresoController presoControl=new PresoController();
         presoControl.inserir(preso);
         limparCampos();
-    }//GEN-LAST:event_btInserirActionPerformed
-
-    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
-
-        this.dispose();
-    }//GEN-LAST:event_btCancelarActionPerformed
-
-    private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btLimparActionPerformed
-
-    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        // TODO add your handling code here:
+        
+        tfNome.setEnabled(false);
+        tfCpf.setEnabled(false);
+        tfDataNascimento.setEnabled(false);
+        tfFiliacao.setEnabled(false);
+        tfNaturalidade.setEnabled(false);
+        tfCor.setEnabled(false);
+        tfDataPrisao.setEnabled(false);
+        tfPena.setEnabled(false);
+        tfCela.setEnabled(false); 
+        btSalvar.setEnabled(false);
+        btLimpar.setEnabled(false);
+        btInserir.setEnabled(true);
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btFotoPresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFotoPresoActionPerformed

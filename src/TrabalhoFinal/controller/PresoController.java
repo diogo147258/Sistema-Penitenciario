@@ -58,20 +58,20 @@ public class PresoController {
         Conexao conexao = new Conexao();
         Connection con = conexao.conectar();
         /*FALTA COR, NATURALIDADE, FILIACAO,*/
-        String instrucao = "INSERT INTO prisao (id_preso, nome, data_nascimento, cpf , cela_id, data_prisao, pena_anos, cor, naturalidade, filiacao) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String instrucao = "INSERT INTO prisao ( nome, data_nascimento, cpf , cela_id, data_prisao, pena_anos, cor, naturalidade, filiacao) VALUES (?,?,?,?,?,?,?,?,?)";
         boolean retorno = false;
         try {
             PreparedStatement ps = con.prepareStatement(instrucao);
-            ps.setInt(1, preso.getIdPreso());
-            ps.setString(2, preso.getNome());
-            ps.setString(3, preso.getDataNascimento());
-            ps.setString(4, preso.getCpf());
-            ps.setInt(5, preso.getIdCela());
-            ps.setString(6, preso.getDataEntrada());
-            ps.setString(7, preso.getPena());
-            ps.setString(8,preso.getCor());
-            ps.setString(9, preso.getNaturalidade());
-            ps.setString(10, preso.getFiliacao());
+            //ps.setInt(1, preso.getIdPreso());
+            ps.setString(1, preso.getNome());
+            ps.setString(2, preso.getDataNascimento());
+            ps.setString(3, preso.getCpf());
+            ps.setInt(4, preso.getIdCela());
+            ps.setString(5, preso.getDataEntrada());
+            ps.setString(6, preso.getPena());
+            ps.setString(7,preso.getCor());
+            ps.setString(8, preso.getNaturalidade());
+            ps.setString(9, preso.getFiliacao());
             int resultado = ps.executeUpdate();
             retorno = resultado >= 0;
         } catch (Exception ex) {
@@ -87,7 +87,7 @@ public class PresoController {
          
         Conexao conexao = new Conexao();
         Connection con = conexao.conectar();
-        String instrucao = "UPDATE INTO prisao (id_preso, nome, data_nascimento, cpf , cela_id, data_entrada, pena_anos, cor, naturalidade, filiacao) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String instrucao = "UPDATE INTO prisao ( nome, data_nascimento, cpf , cela_id, data_entrada, pena_anos, cor, naturalidade, filiacao) VALUES (?,?,?,?,?,?,?,?,?)";
         boolean retorno = false;
         try {
             PreparedStatement ps = con.prepareStatement(instrucao);

@@ -1,5 +1,3 @@
-
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -15,11 +13,14 @@ public class InicioView extends javax.swing.JFrame {
     /**
      * Creates new form Inicio1View
      */
+    
     public InicioView() {
         initComponents();
-        
+        setResizable(false);
        
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,6 +38,7 @@ public class InicioView extends javax.swing.JFrame {
         JMICadastrar = new javax.swing.JMenuItem();
         JMIAgendar = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        MICadastrarFunc = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,17 +53,17 @@ public class InicioView extends javax.swing.JFrame {
         jDesktopInicio.setLayout(jDesktopInicioLayout);
         jDesktopInicioLayout.setHorizontalGroup(
             jDesktopInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopInicioLayout.createSequentialGroup()
-                .addGap(218, 218, 218)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopInicioLayout.createSequentialGroup()
+                .addContainerGap(266, Short.MAX_VALUE)
                 .addComponent(lbTituloInicio)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addGap(273, 273, 273))
         );
         jDesktopInicioLayout.setVerticalGroup(
             jDesktopInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopInicioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbTituloInicio)
-                .addContainerGap(480, Short.MAX_VALUE))
+                .addContainerGap(553, Short.MAX_VALUE))
         );
 
         JMPreso.setText("Preso");
@@ -80,6 +82,15 @@ public class InicioView extends javax.swing.JFrame {
         jMenuBar1.add(JMPreso);
 
         jMenu2.setText("Funcionario");
+
+        MICadastrarFunc.setText("Cadastrar Funcionário");
+        MICadastrarFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MICadastrarFuncActionPerformed(evt);
+            }
+        });
+        jMenu2.add(MICadastrarFunc);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -92,7 +103,7 @@ public class InicioView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopInicio)
+            .addComponent(jDesktopInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -103,6 +114,12 @@ public class InicioView extends javax.swing.JFrame {
         jDesktopInicio.add(preso);
         preso.setVisible(true);
     }//GEN-LAST:event_JMICadastrarActionPerformed
+
+    private void MICadastrarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MICadastrarFuncActionPerformed
+       FuncionarioView funcionario=new FuncionarioView();
+       jDesktopInicio.add(funcionario);
+       funcionario.setVisible(true);
+    }//GEN-LAST:event_MICadastrarFuncActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,6 +161,7 @@ public class InicioView extends javax.swing.JFrame {
     private javax.swing.JMenuItem JMIAgendar;
     private javax.swing.JMenuItem JMICadastrar;
     private javax.swing.JMenu JMPreso;
+    private javax.swing.JMenuItem MICadastrarFunc;
     private javax.swing.JDesktopPane jDesktopInicio;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
