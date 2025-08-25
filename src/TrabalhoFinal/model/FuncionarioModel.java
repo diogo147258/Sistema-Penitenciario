@@ -10,7 +10,8 @@ package TrabalhoFinal.model;
  */
 public class FuncionarioModel {
     private String nomeFunc, cpfFunc, dataNascimentoFunc,RG,sexo,cargo,dataAdmissao,email,telefone,turno;
-    
+    private int id_func;
+
     public FuncionarioModel(){}
 
     public FuncionarioModel(String nomeFunc, String cpfFunc, String dataNascimentoFunc, String RG, String sexo, String cargo, String dataAdmissao, String email, String telefone, String turno) {
@@ -24,6 +25,7 @@ public class FuncionarioModel {
         this.email = email;
         this.telefone = telefone;
         this.turno = turno;
+        this.id_func=id_func;
     }
 
     public String getNomeFunc() {
@@ -104,5 +106,12 @@ public class FuncionarioModel {
 
     public void setTurno(String turno) {
         this.turno = turno;
+    }
+     public int getId_func() {
+        return id_func;
+    }
+
+    public void setId_func(int id_func) {
+        this.id_func = id_func;
     }
 }

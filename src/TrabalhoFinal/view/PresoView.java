@@ -4,23 +4,28 @@
  */
 package TrabalhoFinal.view;
 
+import TrabalhoFinal.controller.CelaController;
 import TrabalhoFinal.controller.PresoController;
+import TrabalhoFinal.model.CelaModel;
 import TrabalhoFinal.model.PresoModel;
 import java.awt.Image;
+import java.util.List;
 import javax.swing.*;
 
 /**
  *
  * @author diogo
  */
-
 public class PresoView extends javax.swing.JInternalFrame {
+
+    private int idPresoAtual = -1;
 
     /**
      * Creates new form Preso1View
      */
     public PresoView() {
         initComponents();
+        carregarCelasNoCombo();
         setResizable(false);
         ImageIcon icon = new ImageIcon(getClass().getResource("foto.png"));
         Image img = icon.getImage().getScaledInstance(160, 160, Image.SCALE_SMOOTH);
@@ -33,26 +38,78 @@ public class PresoView extends javax.swing.JInternalFrame {
         tfCor.setEnabled(false);
         tfDataPrisao.setEnabled(false);
         tfPena.setEnabled(false);
-        tfCela.setEnabled(false); 
+        cbPresoCela.setEnabled(false);
         btSalvar.setEnabled(false);
         btLimpar.setEnabled(false);
-        tfId.setEnabled(false);
+        btSalvarAlt.setVisible(false);
     }
-    
-     public void limparCampos(){
-    
-    tfNome.setText("");
-    tfCpf.setText("");
-    tfDataNascimento.setText("");
-    tfCela.setText("");
-    tfPena.setText("");
-    tfFiliacao.setText("");
-    tfNaturalidade.setText("");
-    tfCor.setText("");
-    tfDataPrisao.setText("");
-    
+
+    private void carregarCelasNoCombo() {
+        CelaController controller = new CelaController();
+        List<CelaModel> celas = controller.buscarCelas();
+        cbPresoCela.removeAllItems();
+
+        for (CelaModel cela : celas) {
+            cbPresoCela.addItem(cela);
+            System.out.println("Celas carregadas: " + celas);
+
+        }
     }
-    
+
+    public void ativarSalvar() {
+        btSalvarAlt.setVisible(true);
+        btSalvar.setVisible(false);
+        btInserir.setVisible(false);
+        tfNome.setEnabled(true);
+        tfCpf.setEnabled(true);
+        tfDataNascimento.setEnabled(true);
+        tfFiliacao.setEnabled(true);
+        tfNaturalidade.setEnabled(true);
+        tfCor.setEnabled(true);
+        tfDataPrisao.setEnabled(true);
+        tfPena.setEnabled(true);
+        cbPresoCela.setEnabled(true);
+        btSalvar.setEnabled(true);
+        btLimpar.setEnabled(true);
+    }
+
+    public void limparCampos() {
+
+        tfNome.setText("");
+        tfCpf.setText("");
+        tfDataNascimento.setText("");
+        cbPresoCela.setSelectedItem("");
+        tfPena.setText("");
+        tfFiliacao.setText("");
+        tfNaturalidade.setText("");
+        tfCor.setText("");
+        tfDataPrisao.setText("");
+
+    }
+
+    private void selecionarCelaNoCombo(int idCela) {
+        for (int i = 0; i < cbPresoCela.getItemCount(); i++) {
+            CelaModel cela = cbPresoCela.getItemAt(i);
+            if (cela.getNumero() == idCela) {
+                cbPresoCela.setSelectedIndex(i);
+                return;
+            }
+        }
+    }
+
+    public void preencherCampos(PresoModel preso) {
+
+        tfNome.setText(preso.getNome());
+        tfCpf.setText(preso.getCpf());
+        tfDataNascimento.setText(preso.getDataNascimento());
+        tfFiliacao.setText(preso.getFiliacao());
+        tfNaturalidade.setText(preso.getNaturalidade());
+        tfCor.setText(preso.getCor());
+        tfDataPrisao.setText(preso.getDataEntrada());
+        tfPena.setText(preso.getPena());
+        selecionarCelaNoCombo(preso.getIdCela());
+        idPresoAtual = preso.getIdPreso();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,8 +122,6 @@ public class PresoView extends javax.swing.JInternalFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        lbiD = new javax.swing.JLabel();
-        tfId = new javax.swing.JTextField();
         lbNome = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
         lbCpf = new javax.swing.JLabel();
@@ -74,7 +129,6 @@ public class PresoView extends javax.swing.JInternalFrame {
         lbDataNascimento = new javax.swing.JLabel();
         tfDataNascimento = new javax.swing.JTextField();
         lbCela = new javax.swing.JLabel();
-        tfCela = new javax.swing.JTextField();
         lbPena = new javax.swing.JLabel();
         tfPena = new javax.swing.JTextField();
         btFotoPreso = new javax.swing.JButton();
@@ -86,10 +140,13 @@ public class PresoView extends javax.swing.JInternalFrame {
         tfCor = new javax.swing.JTextField();
         lbDataPrisao = new javax.swing.JLabel();
         tfDataPrisao = new javax.swing.JTextField();
+        lbCadastroFunc = new javax.swing.JLabel();
+        cbPresoCela = new javax.swing.JComboBox<>();
         btInserir = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
         btLimpar = new javax.swing.JButton();
+        btSalvarAlt = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(900, 623));
 
@@ -99,14 +156,6 @@ public class PresoView extends javax.swing.JInternalFrame {
         jLabel2.setOpaque(true);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-
-        lbiD.setText("ID:");
-
-        tfId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfIdActionPerformed(evt);
-            }
-        });
 
         lbNome.setText("Nome:");
 
@@ -133,12 +182,6 @@ public class PresoView extends javax.swing.JInternalFrame {
         });
 
         lbCela.setText("Cela:");
-
-        tfCela.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfCelaActionPerformed(evt);
-            }
-        });
 
         lbPena.setText("Pena:");
 
@@ -175,65 +218,76 @@ public class PresoView extends javax.swing.JInternalFrame {
             }
         });
 
+        lbCadastroFunc.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        lbCadastroFunc.setText("Cadastro de Preso");
+
+        cbPresoCela.setModel(new javax.swing.DefaultComboBoxModel<CelaModel>());
+        cbPresoCela.setSelectedItem(new javax.swing.DefaultComboBoxModel<CelaModel>());
+        cbPresoCela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbPresoCelaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(lbiD)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbCadastroFunc))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(btFotoPreso, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(43, 43, 43)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lbPena)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfPena, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lbNaturaldiade)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfNaturalidade))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lbFiliacao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfFiliacao))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lbDataNascimento)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfDataNascimento))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(lbCpf)
-                        .addGap(18, 18, 18)
-                        .addComponent(tfCpf))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(lbNome)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lbCor)
-                        .addGap(13, 13, 13)
-                        .addComponent(tfCor))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lbDataPrisao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfDataPrisao))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lbCela)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfCela)))
-                .addContainerGap(120, Short.MAX_VALUE))
+                        .addGap(74, 74, 74)
+                        .addComponent(btFotoPreso, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbPena)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfPena, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbNaturaldiade)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfNaturalidade))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbFiliacao)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfFiliacao))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbDataNascimento)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfDataNascimento))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbCpf)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfCpf))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbNome)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbCor)
+                                .addGap(13, 13, 13)
+                                .addComponent(tfCor))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbDataPrisao)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfDataPrisao))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbCela)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbPresoCela, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addGap(68, 68, 68))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addComponent(lbCadastroFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbNome)
@@ -253,30 +307,25 @@ public class PresoView extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbNaturaldiade)
-                            .addComponent(tfNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbCor)
-                            .addComponent(tfCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbDataPrisao)
-                            .addComponent(tfDataPrisao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbPena)
-                            .addComponent(tfPena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbCela)
-                            .addComponent(tfCela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btFotoPreso, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbiD)
-                            .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                            .addComponent(tfNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btFotoPreso, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbCor)
+                    .addComponent(tfCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbDataPrisao)
+                    .addComponent(tfDataPrisao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbPena)
+                    .addComponent(tfPena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbCela)
+                    .addComponent(cbPresoCela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18))
         );
 
         btInserir.setText("Inserir");
@@ -307,6 +356,13 @@ public class PresoView extends javax.swing.JInternalFrame {
             }
         });
 
+        btSalvarAlt.setText("Salvar alterações");
+        btSalvarAlt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarAltActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -316,42 +372,40 @@ public class PresoView extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(174, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(130, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btInserir)
-                        .addGap(35, 35, 35)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btSalvar)
-                        .addGap(31, 31, 31)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btLimpar)
-                        .addGap(34, 34, 34)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btCancelar)
-                        .addGap(80, 80, 80))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(169, 169, 169))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btSalvarAlt)))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(39, 39, 39)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btInserir)
                     .addComponent(btSalvar)
                     .addComponent(btLimpar)
-                    .addComponent(btCancelar))
-                .addContainerGap(127, Short.MAX_VALUE))
+                    .addComponent(btCancelar)
+                    .addComponent(btSalvarAlt))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tfIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIdActionPerformed
-        
-    }//GEN-LAST:event_tfIdActionPerformed
 
     private void tfNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomeActionPerformed
         // TODO add your handling code here:
@@ -364,10 +418,6 @@ public class PresoView extends javax.swing.JInternalFrame {
     private void tfDataNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDataNascimentoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfDataNascimentoActionPerformed
-
-    private void tfCelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCelaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfCelaActionPerformed
 
     private void tfPenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPenaActionPerformed
         // TODO add your handling code here:
@@ -386,7 +436,7 @@ public class PresoView extends javax.swing.JInternalFrame {
         tfCor.setEnabled(true);
         tfDataPrisao.setEnabled(true);
         tfPena.setEnabled(true);
-        tfCela.setEnabled(true); 
+        cbPresoCela.setEnabled(true);
         btSalvar.setEnabled(true);
         btLimpar.setEnabled(true);
         btInserir.setEnabled(false);
@@ -402,9 +452,13 @@ public class PresoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btLimparActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        PresoModel preso=new PresoModel();
-       // preso.setIdPreso(Integer.parseInt(tfId.getText()));
-        preso.setIdCela(Integer.parseInt(tfCela.getText()));
+        PresoModel preso = new PresoModel();
+
+        CelaModel celaSelecionada = (CelaModel) cbPresoCela.getSelectedItem();
+        if (celaSelecionada != null) {
+            preso.setIdCela(celaSelecionada.getNumero()); 
+        } 
+
         preso.setNome(tfNome.getText());
         preso.setDataNascimento(tfDataNascimento.getText());
         preso.setDataEntrada(tfDataPrisao.getText());
@@ -413,22 +467,31 @@ public class PresoView extends javax.swing.JInternalFrame {
         preso.setFiliacao(tfFiliacao.getText());
         preso.setNaturalidade(tfNaturalidade.getText());
         preso.setCor(tfCor.getText());
-        PresoController presoControl=new PresoController();
-        presoControl.inserir(preso);
-        limparCampos();
-        
-        tfNome.setEnabled(false);
-        tfCpf.setEnabled(false);
-        tfDataNascimento.setEnabled(false);
-        tfFiliacao.setEnabled(false);
-        tfNaturalidade.setEnabled(false);
-        tfCor.setEnabled(false);
-        tfDataPrisao.setEnabled(false);
-        tfPena.setEnabled(false);
-        tfCela.setEnabled(false); 
-        btSalvar.setEnabled(false);
-        btLimpar.setEnabled(false);
-        btInserir.setEnabled(true);
+
+        PresoController presoControl = new PresoController();
+        boolean sucesso = presoControl.inserir(preso);
+
+        if (sucesso) {
+            JOptionPane.showMessageDialog(this, "Preso inserido com sucesso!");
+            limparCampos();
+
+            tfNome.setEnabled(false);
+            tfCpf.setEnabled(false);
+            tfDataNascimento.setEnabled(false);
+            tfFiliacao.setEnabled(false);
+            tfNaturalidade.setEnabled(false);
+            tfCor.setEnabled(false);
+            tfDataPrisao.setEnabled(false);
+            tfPena.setEnabled(false);
+            cbPresoCela.setEnabled(false);
+            btSalvar.setEnabled(false);
+            btLimpar.setEnabled(false);
+            btInserir.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao inserir preso.");
+        }
+
+
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btFotoPresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFotoPresoActionPerformed
@@ -439,15 +502,45 @@ public class PresoView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfDataPrisaoActionPerformed
 
- 
+    private void btSalvarAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarAltActionPerformed
+        PresoModel preso = new PresoModel();
+        preso.setIdPreso(this.idPresoAtual);
+        preso.setIdCela(Integer.parseInt(cbPresoCela.getSelectedItem().toString()));
+        preso.setNome(tfNome.getText());
+        preso.setDataNascimento(tfDataNascimento.getText());
+        preso.setDataEntrada(tfDataPrisao.getText());
+        preso.setCpf(tfCpf.getText());
+        preso.setPena(tfPena.getText());
+        preso.setFiliacao(tfFiliacao.getText());
+        preso.setNaturalidade(tfNaturalidade.getText());
+        preso.setCor(tfCor.getText());
+        PresoController presoControl = new PresoController();
+        presoControl.atualizar(preso);
+        limparCampos();
+        JOptionPane.showMessageDialog(this, "Preso editado com sucesso!");
+        this.dispose();
+    }//GEN-LAST:event_btSalvarAltActionPerformed
+
+    private void cbPresoCelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPresoCelaActionPerformed
+
+        CelaModel celaSelecionada = (CelaModel) cbPresoCela.getSelectedItem();
+        if (celaSelecionada != null) {
+            int numero = celaSelecionada.getNumero();
+        }
+    }//GEN-LAST:event_cbPresoCelaActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btFotoPreso;
     private javax.swing.JButton btInserir;
     private javax.swing.JButton btLimpar;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JButton btSalvarAlt;
+    private javax.swing.JComboBox<CelaModel> cbPresoCela;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lbCadastroFunc;
     private javax.swing.JLabel lbCela;
     private javax.swing.JLabel lbCor;
     private javax.swing.JLabel lbCpf;
@@ -457,14 +550,11 @@ public class PresoView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbNaturaldiade;
     private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbPena;
-    private javax.swing.JLabel lbiD;
-    private javax.swing.JTextField tfCela;
     private javax.swing.JTextField tfCor;
     private javax.swing.JTextField tfCpf;
     private javax.swing.JTextField tfDataNascimento;
     private javax.swing.JTextField tfDataPrisao;
     private javax.swing.JTextField tfFiliacao;
-    private javax.swing.JTextField tfId;
     private javax.swing.JTextField tfNaturalidade;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfPena;

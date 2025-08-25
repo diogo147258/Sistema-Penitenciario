@@ -6,7 +6,7 @@ package TrabalhoFinal.view;
 
 import TrabalhoFinal.controller.FuncionarioController;
 import TrabalhoFinal.model.FuncionarioModel;
-
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,8 +19,8 @@ public class FuncionarioView extends javax.swing.JInternalFrame {
      */
     public FuncionarioView() {
         initComponents();
-        
-         tfNomeFunc.setEnabled(false);
+
+        tfNomeFunc.setEnabled(false);
         tfCpfFunc.setEnabled(false);
         tfDataNascimentoFunc.setEnabled(false);
         tfRG.setEnabled(false);
@@ -35,25 +35,80 @@ public class FuncionarioView extends javax.swing.JInternalFrame {
         rbNoite.setEnabled(false);
         btSalvarFunc.setEnabled(false);
         btLimparFunc.setEnabled(false);
-        
-    }
-public void LimparCampos(){
-    tfNomeFunc.setText("");
-    tfCpfFunc.setText("");
-    tfDataNascimentoFunc.setText("");
-    tfRG.setText("");
-    rbMasculino.setSelected(false);
-    rbFeminino.setSelected(false);
-    tfCargo.setText("");
-    tfDataAdmissao.setText("");
-    tfEmail.setText("");
-    tfTelefone.setText("");
-    rbManha.setSelected(false);
-    rbTarde.setSelected(false);
-    rbNoite.setSelected(false);
-    
+        btSalvarAltFunc.setVisible(false);
 
-}
+    }
+
+    public void limparCampos() {
+        tfNomeFunc.setText("");
+        tfCpfFunc.setText("");
+        tfDataNascimentoFunc.setText("");
+        tfRG.setText("");
+        rbMasculino.setSelected(false);
+        rbFeminino.setSelected(false);
+        tfCargo.setText("");
+        tfDataAdmissao.setText("");
+        tfEmail.setText("");
+        tfTelefone.setText("");
+        rbManha.setSelected(false);
+        rbTarde.setSelected(false);
+        rbNoite.setSelected(false);
+
+    }
+    int idFuncionarioAtual = 0;
+
+    public void preencherCampos(FuncionarioModel funcionario) {
+
+        idFuncionarioAtual = funcionario.getId_func();
+        String sexo = funcionario.getSexo();
+        String turno = funcionario.getTurno();
+        tfNomeFunc.setText(funcionario.getNomeFunc());
+        tfCpfFunc.setText(funcionario.getCpfFunc());
+        tfDataNascimentoFunc.setText(funcionario.getDataNascimentoFunc());
+        tfRG.setText(funcionario.getRG());
+
+        if (sexo.equals("Masculino")) {
+            rbMasculino.setSelected(true);
+        } else if (sexo.equals("Feminino")) {
+            rbFeminino.setSelected(true);
+        }
+
+        tfCargo.setText(funcionario.getDataAdmissao());
+        tfDataAdmissao.setText(funcionario.getEmail());
+        tfEmail.setText(funcionario.getTelefone());
+        tfTelefone.setText(String.valueOf(funcionario.getTelefone()));
+
+        if (turno.equals("Manhã")) {
+            rbManha.setSelected(true);
+        } else if (turno.equals("Tarde")) {
+            rbTarde.setSelected(true);
+        } else if (turno.equals("Noite")) {
+            rbNoite.setSelected(true);
+        }
+    }
+
+    public void ativarSalvar() {
+
+        btSalvarFunc.setVisible(false);
+        btInserirFunc.setVisible(false);
+        tfNomeFunc.setEnabled(true);
+        tfCpfFunc.setEnabled(true);
+        tfDataNascimentoFunc.setEnabled(true);
+        tfRG.setEnabled(true);
+        rbMasculino.setEnabled(true);
+        rbFeminino.setEnabled(true);
+        tfCargo.setEnabled(true);
+        tfDataAdmissao.setEnabled(true);
+        tfEmail.setEnabled(true);
+        tfTelefone.setEnabled(true);
+        rbManha.setEnabled(true);
+        rbTarde.setEnabled(true);
+        rbNoite.setEnabled(true);
+        btSalvarFunc.setEnabled(true);
+        btLimparFunc.setEnabled(true);
+        btSalvarAltFunc.setVisible(true);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -96,6 +151,7 @@ public void LimparCampos(){
         btSalvarFunc = new javax.swing.JButton();
         btCancelarFunc = new javax.swing.JButton();
         btLimparFunc = new javax.swing.JButton();
+        btSalvarAltFunc = new javax.swing.JButton();
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabel3.setText(" SISTEMA PENITENCIÁRIO ");
@@ -145,6 +201,10 @@ public void LimparCampos(){
         });
 
         btFotoPreso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TrabalhoFinal/view/foto.png"))); // NOI18N
+        btFotoPreso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btFotoPreso.setMargin(new java.awt.Insets(2, 2, 3, 2));
+        btFotoPreso.setMaximumSize(new java.awt.Dimension(300, 200));
+        btFotoPreso.setMinimumSize(new java.awt.Dimension(300, 200));
         btFotoPreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btFotoPresoActionPerformed(evt);
@@ -201,9 +261,9 @@ public void LimparCampos(){
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addContainerGap()
                 .addComponent(btFotoPreso, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel2Layout.createSequentialGroup()
@@ -237,9 +297,8 @@ public void LimparCampos(){
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addComponent(lbNomeFunc)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tfNomeFunc)
-                                .addComponent(lbCadastroFunc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(tfNomeFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lbCadastroFunc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lbNaturaldiade)
                         .addGap(18, 18, 18)
@@ -271,10 +330,9 @@ public void LimparCampos(){
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbCpfFunc)
                             .addComponent(tfCpfFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(btFotoPreso, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbDataNascimentoFunc)
                     .addComponent(tfDataNascimentoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -340,28 +398,37 @@ public void LimparCampos(){
             }
         });
 
+        btSalvarAltFunc.setText("Salvar Alterações");
+        btSalvarAltFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarAltFuncActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(258, 258, 258)
-                .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(269, 269, 269))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(132, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btInserirFunc)
-                        .addGap(35, 35, 35)
-                        .addComponent(btSalvarFunc)
-                        .addGap(31, 31, 31)
-                        .addComponent(btLimparFunc)
-                        .addGap(34, 34, 34)
-                        .addComponent(btCancelarFunc)
-                        .addGap(105, 105, 105))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(129, 129, 129))
+                .addGap(156, 156, 156)
+                .addComponent(btInserirFunc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(53, 53, 53)
+                .addComponent(btSalvarFunc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(53, 53, 53)
+                .addComponent(btLimparFunc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(53, 53, 53)
+                .addComponent(btCancelarFunc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(42, 42, 42)
+                .addComponent(btSalvarAltFunc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(35, 35, 35))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(167, 167, 167)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(162, 162, 162))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -370,11 +437,12 @@ public void LimparCampos(){
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(btSalvarAltFunc)
                     .addComponent(btInserirFunc)
                     .addComponent(btSalvarFunc)
-                    .addComponent(btLimparFunc)
-                    .addComponent(btCancelarFunc))
+                    .addComponent(btCancelarFunc)
+                    .addComponent(btLimparFunc))
                 .addGap(40, 40, 40))
         );
 
@@ -433,34 +501,37 @@ public void LimparCampos(){
     }//GEN-LAST:event_btInserirFuncActionPerformed
 
     private void btSalvarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarFuncActionPerformed
-        FuncionarioModel funcionario=new FuncionarioModel();
-        String sexo,turno="";
+        FuncionarioModel funcionario = new FuncionarioModel();
+        String sexo, turno = "";
         funcionario.setNomeFunc(tfNomeFunc.getText());
         funcionario.setDataNascimentoFunc(tfDataNascimentoFunc.getText());
         funcionario.setDataAdmissao(tfDataAdmissao.getText());
         funcionario.setCpfFunc(tfCpfFunc.getText());
         funcionario.setEmail(tfEmail.getText());
         funcionario.setRG(tfRG.getText());
-        
-        if(rbMasculino.isSelected()){
-        sexo=rbMasculino.getText();
-        }else{
-        sexo=rbFeminino.getText();
+
+        if (rbMasculino.isSelected()) {
+            sexo = rbMasculino.getText();
+        } else {
+            sexo = rbFeminino.getText();
         }
-        
+
         funcionario.setSexo(sexo);
         funcionario.setCargo(tfCargo.getText());
-        
-        if(rbManha.isSelected()){
-        turno=rbManha.getText();
-        }else if(rbTarde.isSelected()){turno=rbTarde.getText();}
-        else{turno=rbNoite.getText();}
-        
+
+        if (rbManha.isSelected()) {
+            turno = rbManha.getText();
+        } else if (rbTarde.isSelected()) {
+            turno = rbTarde.getText();
+        } else {
+            turno = rbNoite.getText();
+        }
+
         funcionario.setTelefone(tfTelefone.getText());
         funcionario.setTurno(turno);
-        FuncionarioController funcionarioControl=new FuncionarioController();
+        FuncionarioController funcionarioControl = new FuncionarioController();
         funcionarioControl.inserir(funcionario);
-        LimparCampos();
+        limparCampos();
 
         tfNomeFunc.setEnabled(false);
         tfCpfFunc.setEnabled(false);
@@ -479,9 +550,9 @@ public void LimparCampos(){
         rbTarde.setEnabled(false);
         rbNoite.setEnabled(false);
         rbManha.setSelected(false);
-    rbTarde.setSelected(false);
-    rbNoite.setSelected(false);
-        
+        rbTarde.setSelected(false);
+        rbNoite.setSelected(false);
+
     }//GEN-LAST:event_btSalvarFuncActionPerformed
 
     private void btCancelarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarFuncActionPerformed
@@ -490,12 +561,50 @@ public void LimparCampos(){
     }//GEN-LAST:event_btCancelarFuncActionPerformed
 
     private void btLimparFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparFuncActionPerformed
-        LimparCampos();
+        limparCampos();
     }//GEN-LAST:event_btLimparFuncActionPerformed
 
     private void rbMasculinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMasculinoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rbMasculinoActionPerformed
+
+    private void btSalvarAltFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarAltFuncActionPerformed
+        String turno = "", sexo = "";
+
+        FuncionarioModel funcionario = new FuncionarioModel();
+        funcionario.setId_func(this.idFuncionarioAtual);
+        funcionario.setNomeFunc(tfNomeFunc.getText());
+        funcionario.setDataNascimentoFunc(tfDataNascimentoFunc.getText());
+        funcionario.setDataAdmissao(tfDataAdmissao.getText());
+        funcionario.setCpfFunc(tfCpfFunc.getText());
+
+        if (rbMasculino.isSelected()) {
+            sexo = rbMasculino.getText();
+        } else {
+            sexo = rbFeminino.getText();
+        }
+        funcionario.setSexo(sexo);
+
+        funcionario.setCargo(tfCargo.getText());
+        funcionario.setTelefone(tfTelefone.getText());
+        funcionario.setEmail(tfEmail.getText());
+        funcionario.setRG(tfRG.getText());
+
+        if (rbManha.isSelected()) {
+            turno = rbManha.getText();
+        } else if (rbTarde.isSelected()) {
+            turno = rbTarde.getText();
+        } else {
+            turno = rbNoite.getText();
+        }
+        funcionario.setTurno(turno);
+
+        FuncionarioController funcControl = new FuncionarioController();
+        funcControl.atualizar(funcionario);
+        limparCampos();
+        JOptionPane.showMessageDialog(this, "Funcionario editado com sucesso!");
+        this.dispose();
+    }//GEN-LAST:event_btSalvarAltFuncActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -503,6 +612,7 @@ public void LimparCampos(){
     private javax.swing.JButton btFotoPreso;
     private javax.swing.JButton btInserirFunc;
     private javax.swing.JButton btLimparFunc;
+    private javax.swing.JButton btSalvarAltFunc;
     private javax.swing.JButton btSalvarFunc;
     private javax.swing.ButtonGroup buttonGroup6;
     private javax.swing.ButtonGroup buttonGroup7;
