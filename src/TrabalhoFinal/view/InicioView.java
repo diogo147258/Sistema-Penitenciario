@@ -1,5 +1,3 @@
-
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -15,10 +13,14 @@ public class InicioView extends javax.swing.JFrame {
     /**
      * Creates new form Inicio1View
      */
+    
     public InicioView() {
         initComponents();
+        setResizable(false);
        
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,13 +31,23 @@ public class InicioView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         jDesktopInicio = new javax.swing.JDesktopPane();
         lbTituloInicio = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         JMPreso = new javax.swing.JMenu();
         JMICadastrar = new javax.swing.JMenuItem();
-        JMIAgendar = new javax.swing.JMenuItem();
+        MIListarPresos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        MICadastrarFunc = new javax.swing.JMenuItem();
+        MIListarFunc = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        miConsultarCelas = new javax.swing.JMenuItem();
+        JMVisita = new javax.swing.JMenu();
+        JMIAgendarVisita = new javax.swing.JMenuItem();
+        JMIListar = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,17 +62,17 @@ public class InicioView extends javax.swing.JFrame {
         jDesktopInicio.setLayout(jDesktopInicioLayout);
         jDesktopInicioLayout.setHorizontalGroup(
             jDesktopInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopInicioLayout.createSequentialGroup()
-                .addGap(218, 218, 218)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopInicioLayout.createSequentialGroup()
+                .addContainerGap(271, Short.MAX_VALUE)
                 .addComponent(lbTituloInicio)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addGap(273, 273, 273))
         );
         jDesktopInicioLayout.setVerticalGroup(
             jDesktopInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopInicioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbTituloInicio)
-                .addContainerGap(480, Short.MAX_VALUE))
+                .addContainerGap(553, Short.MAX_VALUE))
         );
 
         JMPreso.setText("Preso");
@@ -73,13 +85,67 @@ public class InicioView extends javax.swing.JFrame {
         });
         JMPreso.add(JMICadastrar);
 
-        JMIAgendar.setText("Agendar visitas");
-        JMPreso.add(JMIAgendar);
+        MIListarPresos.setText("Listar Presos");
+        MIListarPresos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MIListarPresosActionPerformed(evt);
+            }
+        });
+        JMPreso.add(MIListarPresos);
 
         jMenuBar1.add(JMPreso);
 
         jMenu2.setText("Funcionario");
+
+        MICadastrarFunc.setText("Cadastrar Funcionário");
+        MICadastrarFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MICadastrarFuncActionPerformed(evt);
+            }
+        });
+        jMenu2.add(MICadastrarFunc);
+
+        MIListarFunc.setText("Listar Funcionarios");
+        MIListarFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MIListarFuncActionPerformed(evt);
+            }
+        });
+        jMenu2.add(MIListarFunc);
+
         jMenuBar1.add(jMenu2);
+
+        jMenu1.setText("Celas");
+
+        miConsultarCelas.setText("Consultar Celas");
+        miConsultarCelas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miConsultarCelasActionPerformed(evt);
+            }
+        });
+        jMenu1.add(miConsultarCelas);
+
+        jMenuBar1.add(jMenu1);
+
+        JMVisita.setText("Visita");
+
+        JMIAgendarVisita.setText("Agendar Visitas");
+        JMIAgendarVisita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIAgendarVisitaActionPerformed(evt);
+            }
+        });
+        JMVisita.add(JMIAgendarVisita);
+
+        JMIListar.setText("Listar Visitas");
+        JMIListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIListarActionPerformed(evt);
+            }
+        });
+        JMVisita.add(JMIListar);
+
+        jMenuBar1.add(JMVisita);
 
         setJMenuBar(jMenuBar1);
 
@@ -91,7 +157,7 @@ public class InicioView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopInicio)
+            .addComponent(jDesktopInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -102,6 +168,42 @@ public class InicioView extends javax.swing.JFrame {
         jDesktopInicio.add(preso);
         preso.setVisible(true);
     }//GEN-LAST:event_JMICadastrarActionPerformed
+
+    private void MICadastrarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MICadastrarFuncActionPerformed
+       FuncionarioView funcionario=new FuncionarioView();
+       jDesktopInicio.add(funcionario);
+       funcionario.setVisible(true);
+    }//GEN-LAST:event_MICadastrarFuncActionPerformed
+
+    private void MIListarPresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIListarPresosActionPerformed
+        ListarPresosView listarPresos=new ListarPresosView();
+        jDesktopInicio.add(listarPresos);
+        listarPresos.setVisible(true);
+    }//GEN-LAST:event_MIListarPresosActionPerformed
+
+    private void MIListarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIListarFuncActionPerformed
+       ListarFuncionarioView listarFuncionarios=new ListarFuncionarioView();
+       jDesktopInicio.add(listarFuncionarios);
+       listarFuncionarios.setVisible(true);
+    }//GEN-LAST:event_MIListarFuncActionPerformed
+
+    private void miConsultarCelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultarCelasActionPerformed
+        CelaView cela=new CelaView();
+        jDesktopInicio.add(cela);
+        cela.setVisible(true);
+    }//GEN-LAST:event_miConsultarCelasActionPerformed
+
+    private void JMIAgendarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIAgendarVisitaActionPerformed
+        VisitaView visitante = new VisitaView();
+        jDesktopInicio.add(visitante);
+        visitante.setVisible(true);
+    }//GEN-LAST:event_JMIAgendarVisitaActionPerformed
+
+    private void JMIListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIListarActionPerformed
+        ListarVisitaView listarVisita = new ListarVisitaView();
+        jDesktopInicio.add(listarVisita);
+        listarVisita.setVisible(true);
+    }//GEN-LAST:event_JMIListarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,12 +242,20 @@ public class InicioView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem JMIAgendar;
+    private javax.swing.JMenuItem JMIAgendarVisita;
     private javax.swing.JMenuItem JMICadastrar;
+    private javax.swing.JMenuItem JMIListar;
     private javax.swing.JMenu JMPreso;
+    private javax.swing.JMenu JMVisita;
+    private javax.swing.JMenuItem MICadastrarFunc;
+    private javax.swing.JMenuItem MIListarFunc;
+    private javax.swing.JMenuItem MIListarPresos;
     private javax.swing.JDesktopPane jDesktopInicio;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel lbTituloInicio;
+    private javax.swing.JMenuItem miConsultarCelas;
     // End of variables declaration//GEN-END:variables
 }
